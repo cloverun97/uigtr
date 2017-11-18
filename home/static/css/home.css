@@ -5,12 +5,26 @@
   width: 100%;
   top: 0;
 }
+
+.navbar .navbar-brand {
+  padding-top: 5px;
+}
+
 .navbar-default .navbar-nav>li>a {
     cursor: pointer;
 }
 
 .navbar-inner {
     background:transparent;
+}
+
+.custom-nv{
+  max-height: 10%;
+}
+
+#brand-image{
+  height: 40px;
+  vertical-align: text-top;
 }
 
 .footer {
