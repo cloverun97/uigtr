@@ -10,7 +10,8 @@
     <!-- bootstrap csss -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">  
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />  
-
+    <link rel="shortcut icon" href="{% static 'icon_tab.ico' %}" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="http://brianshim.com/webtricks/wp-content/uploads/2012/11/stars_favicon.png" type="image/x-icon" /> -->
     <title> 
         {% block title %} UIGTR 2018 {{author}}{% endblock %}
     </title>
@@ -20,6 +21,8 @@
     <header>
         {% include "home/partials/header.html" %}
     </header>
+    <div class="bg-img layer">
+        
     <content>
         <div class="container">
             {% block content %}
@@ -28,6 +31,7 @@
         </div>
 
     </content>
+    </div>
     <footer class="footer">
         <!-- TODO Block Footer dan include footer.html -->
         {% block footer %}
