@@ -139,6 +139,9 @@ celerybeat-schedule
 venv/
 ENV/
 
+#folder image
+images/
+
 # Spyder project settings
 .spyderproject
 

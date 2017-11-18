@@ -17,18 +17,3 @@ class HomeUnitTest(TestCase):
         found = resolve('/home/')
         self.assertEqual(found.func, index)
 
-    def test_landing_page_content_is_written(self):
-        #Content cannot be null
-        self.assertIsNotNone(landing_page_content)
-
-        #Content is filled with 30 characters at least
-        self.assertTrue(len(landing_page_content) >= 30)
-
-    def test_landing_page_is_completed(self):
-        request = HttpRequest()
-        response = index(request)
-        html_response = response.content.decode('utf8')
-        self.assertIn('Hello, this is '+ mhs_name +'.', html_response)
-        self.assertIn(landing_page_content, html_response)
-
-
