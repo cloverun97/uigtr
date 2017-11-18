@@ -17,10 +17,10 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 import home.urls as home
-
+from home.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^home/', include(home,namespace='home')),
-    url(r'^$', include(home,namespace='home')),
+    url(r'^$', index, name='index'),
 ]
