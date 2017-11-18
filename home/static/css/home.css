@@ -1,3 +1,18 @@
+/* Custom navbar style */
+.navbar-static-top {
+  margin-bottom: 19px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+.navbar-default .navbar-nav>li>a {
+    cursor: pointer;
+}
+
+.navbar-inner {
+    background:transparent;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -18,7 +33,7 @@
 }
 
 .layer {
-    background-color: rgba(248, 247, 216, 0.7);
+    background-color: transparent;
     position: absolute;
     top: 0;
     left: 0;
@@ -42,7 +57,14 @@
 }
 
 /*phone*/
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 768px){
+  #input-list form {
+      width: 290px;
+  }
+  .flex-item{
+    flex-basis: 100%;
+  }
 }
+
 
 
