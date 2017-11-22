@@ -9,11 +9,11 @@ from unittest import skip
 
 class HomeUnitTest(TestCase):
 
-    def test_home_url_is_exist(self):
-        response = Client().get('/home/')
+    def test_url_is_exist(self):
+        response = Client().get('/')
         self.assertEqual(response.status_code,200)
 
-    def test_home_using_index_func(self):
-        found = resolve('/home/')
+    def test_using_index_func(self):
+        found = resolve('/')
         self.assertEqual(found.func, index)
 
