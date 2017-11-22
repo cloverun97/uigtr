@@ -39,11 +39,14 @@
 }
 
 .bg-img{
-	background-image:url('../images/BACKGROUND_IMAGE.JPG');
+	background-image:url('https://storage.googleapis.com/uigtr-staticfiles/BACKGROUND_IMAGE.JPG');
   height: 100%; 
 	background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 .layer {
