@@ -4,5 +4,6 @@
 * Python Code [![Coverage Status](https://coveralls.io/repos/github/cloverun97/uigtr/badge.svg?branch=master)](https://coveralls.io/github/cloverun97/uigtr?branch=master)
 
 # uigtr
+
 Project to build website for UI Goes To Riau, Program of Ikatan Mahasiswa Riau UI 
-Link : http://uigtr.web.id/home/
+Link : http://uigtr.web.id/
