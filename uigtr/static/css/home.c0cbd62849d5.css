@@ -1,0 +1,25 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 70px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #394948;
+  color: #ffffff;
+}
+
+.bg-img{
+	background-image:url("../images/BACKGROUND_IMAGE.7bd3e04e80c6.JPG");
+  width:100%;
+  height:100%;
+}
+
+.layer {
+    background-color: rgba(248, 247, 216, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,83 @@
+/* Custom navbar style */
+.navbar-static-top {
+  margin-bottom: 19px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+/*.navbar {
+  height: 8%;
+  min-height: 8%;
+}*/
+
+.navbar-default .navbar-nav>li>a {
+    cursor: pointer;
+}
+
+.navbar-inner {
+    background:transparent;
+}
+
+.custom-nv{
+  max-height: 10%;
+}
+
+#brand-image{
+  height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 70px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #394948;
+  color: #ffffff;
+}
+
+.bg-img{
+	background-image:url('../images/BACKGROUND_IMAGE.JPG');
+  height: 100%; 
+	background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.layer {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+
+/*Nani kore*/
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+}
+
+/*tablet*/
+@media only screen and (min-width: 768px) and (max-width: 991px){
+}
+
+/*phone*/
+@media only screen and (max-width: 768px){
+  #input-list form {
+      width: 290px;
+  }
+  .flex-item{
+    flex-basis: 100%;
+  }
+}
+
+
+
