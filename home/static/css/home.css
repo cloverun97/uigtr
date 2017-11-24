@@ -18,6 +18,28 @@
   background:transparent;
 }
 
+.my-navbar {
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.my-navbar #navbar li a {
+  font-family: 'Quicksand', sans-serif;
+  color: #5DBCD2;
+  -webkit-transition: color 0.7s;
+    -moz-transition:    color 0.7s;
+    -ms-transition:     color 0.7s;
+    -o-transition:      color 0.7s;
+    transition:         color 0.7s;
+}
+.my-navbar #navbar li a:hover{
+  color: #FFFF00;
+}
+
+#my-nav.scroll-navbar {
+  background : rgba(0, 0, 0, 0.5);
+}
 .custom-nv{
   max-height: 10%;
 }
@@ -57,6 +79,7 @@
   width: 100%;
   height: 100%;
 }
+
 .loader {
   position: fixed;
   left: 0px;
@@ -65,16 +88,11 @@
   height: 100%;
   z-index: 9999;
   background: url('https://storage.googleapis.com/uigtr-staticfiles/uigtr35ms.gif') 50% 50% no-repeat rgb(249,249,249);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
-.color{
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7e7d+0,7d7e7d+10,0e0e0e+100 */
-background: #7d7e7d; /* Old browsers */
-background: -moz-linear-gradient(top, #7d7e7d 0%, #7d7e7d 10%, #0e0e0e 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, #7d7e7d 0%,#7d7e7d 10%,#0e0e0e 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, #7d7e7d 0%,#7d7e7d 10%,#0e0e0e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
-}
 
 /*Nani kore*/
 @media only screen and (min-width: 992px) and (max-width: 1199px){
