@@ -4,14 +4,16 @@ $(window).on('load',function(){
 
 $(document).ready(function() {
 	$(window).scroll(function() {
-	  	if($(document).scrollTop() > 10) {
-	    	$('#my-nav').addClass('scroll-navbar');
+		var scroll = $(window).scrollTop();
+	  	if(scroll > 1) {
+	    	$('.my-navbar').css("background", "rgba(0, 0, 0, 0.5)");
+	    	$('.my-navbar').css("transition","all 0.5s");
 	    }
 	    else {
-	    $('#my-nav').removeClass('scroll-navbar');
+	    $('.my-navbar').css("background", "none");
 	    }
   	});
-
+	console.log(scroll);
  //  	$("#list").on("mouseover", function() {
  //  		$(this).css( "color", "red" );
 	// });
