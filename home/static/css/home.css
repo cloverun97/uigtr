@@ -185,6 +185,11 @@ h1 {
   color: #ffffff;
 }
 
+#logo-imr-ui{
+  height: 55px;
+  margin-top: 8px;
+}
+
 .loader {
   position: fixed;
   left: 0px;
