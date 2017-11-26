@@ -31,14 +31,13 @@ $(document).ready(function() {
 		}
 	});
 
+	//smooth scroll
 	$(".slide-section").click(function(e){
 		var linkHref = $(this).attr('href');
-
-		console.log($(linkHref).offset().top);
 		$("html, body").animate({
 			scrollTop: $(linkHref).offset().top
 		}, 700);
-		// e.preventDefault();
+		e.preventDefault();
 	});
 
 });
