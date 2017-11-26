@@ -19,7 +19,6 @@ $(window).on('load',function(){
 });
 
 $(document).ready(function() {
-
 	//navbar scrolling 
 	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
@@ -32,8 +31,14 @@ $(document).ready(function() {
 		}
 	});
 
-	$(".slide-section").click(function(){
-		alert("klik!");
+	$(".slide-section").click(function(e){
+		var linkHref = $(this).attr('href');
+
+		console.log($(linkHref).offset().top);
+		$("html, body").animate({
+			scrollTop: $(linkHref).offset().top
+		}, 700);
+		// e.preventDefault();
 	});
 
 });
