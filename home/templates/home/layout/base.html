@@ -24,21 +24,12 @@
 <body>
     <header>
         {% include "home/partials/header.html" %}
-    </header>
-    <section class="bg-img layer"></section>
-    <!-- <section class="loader"></section> -->
-        
-    <content>
-        <div class="container">
-            {% block content %}
-                <!-- content goes here -->
-            {% endblock %}
-        </div>
+    </header>    
 
-    </content>
-    </div>
+    {% block content %}
+    {% endblock %}
+
     <footer class="footer">
-        <!-- TODO Block Footer dan include footer.html -->
         {% block footer %}
         {% include "home/partials/footer.html" %}
         {% endblock %}
