@@ -44,7 +44,7 @@ html, body {
 }
 
 .my-navbar #navbar li a:hover{
-  color: #FFFF00;
+  color: rgba(255, 255, 0, 0.6);
 }
 
 
@@ -55,6 +55,10 @@ html, body {
 #brand-image{
   height: 60px;
   vertical-align: text-top;
+}
+
+.active-link {
+  color: #FFFF00 !important;
 }
 
 /*Fullpage background image */

@@ -1,7 +1,7 @@
 $(window).on('load',function(){
 	$('.loader').fadeOut();
 	
-	//Welcoming text
+	//Typing animation text
 	var str= "Selamat Datang di Website UIGTR 2018!";
 	var split = str.split("");
 	var counter = 0;
@@ -31,13 +31,26 @@ $(document).ready(function() {
 		}
 	});
 
-	//smooth scroll
+	//smooth scrolling
 	$(".slide-section").click(function(e){
 		var linkHref = $(this).attr('href');
 		$("html, body").animate({
 			scrollTop: $(linkHref).offset().top
 		}, 700);
 		e.preventDefault();
+	});
+
+
+	//Active link switching
+	$(window).scroll(function() {
+		var scrollbarLocation = $(this).scrollTop();
+		$(".slide-section").each(function() {
+			var sectionOffset = $(this.hash).offset().top - 20;
+			if ( sectionOffset <= scrollbarLocation ) {
+				$(this).parent().siblings().children().removeClass('active-link');
+				$(this).addClass('active-link');
+			}
+		});
 	});
 
 });
