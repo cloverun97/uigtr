@@ -62,11 +62,10 @@ html, body {
 }
 
 /*Fullpage background image */
-.intro {
+.full-page {
   width: 100%;
   height: 100%;
   margin: auto;
-  background:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('https://storage.googleapis.com/uigtr-staticfiles/BACKGROUND_IMAGE.JPG') no-repeat;
   background-size: cover;
   background-position: center;
   display: table;
@@ -76,23 +75,42 @@ html, body {
   -o-background-size: cover;
 }
 
-.intro .inner{
+.full-page .inner{
   display: table-cell;
   vertical-align: middle;
   width: 100%;
   max-width: none;
 }
 
-.intro .inner .content {
+.full-page .inner .content {
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
 
 
-.intro .inner .content h1 {
+.full-page .inner .content h1 {
   font-family: 'Quicksand', sans-serif;
   color: #5DBCD2;
+}
+
+#home {
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('https://storage.googleapis.com/uigtr-staticfiles/BACKGROUND_IMAGE.JPG') ;
+/*  background-position: center; 
+  background-size: cover;
+*/
+}
+
+#about {
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+#activity {
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%) ;
+}
+
+#contact {
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 /*Typing animation, blinking cursor*/
@@ -229,7 +247,7 @@ h1 {
     flex-basis: 100%;
   }
 
-  .intro .inner .content h1 {
+  .full-page .inner .content h1 {
     font-size: 20px;
   }
 }
