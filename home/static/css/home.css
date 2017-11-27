@@ -90,6 +90,7 @@ html, body {
 .full-page .inner .content h1 {
   font-family: 'Quicksand', sans-serif;
   color: #5DBCD2;
+  text-shadow: -2px 2px rgba(0, 0, 0, .7);
 }
 
 #home {
@@ -132,45 +133,55 @@ h1 {
 @keyframes "blink" {
   from, to {
     color: transparent;
+    text-shadow: none;
   }
   50% {
     color: #5DBCD2;
+    text-shadow: -2px 2px rgba(0, 0, 0, .7);
   }
 }
 
 @-moz-keyframes blink {
   from, to {
     color: transparent;
+    text-shadow: none;
   }
   50% {
     color: #5DBCD2;
+    text-shadow: -2px 2px rgba(0, 0, 0, .7);
   }
 }
 
 @-webkit-keyframes "blink" {
   from, to {
     color: transparent;
+    text-shadow: none;
   }
   50% {
     color: #5DBCD2;
+    text-shadow: -2px 2px rgba(0, 0, 0, .7);
   }
 }
 
 @-ms-keyframes "blink" {
   from, to {
     color: transparent;
+    text-shadow: none;
   }
   50% {
     color: #5DBCD2;
+    text-shadow: -2px 2px rgba(0, 0, 0, .7);
   }
 }
 
 @-o-keyframes "blink" {
   from, to {
     color: transparent;
+    text-shadow: none;
   }
   50% {
     color: #5DBCD2;
+    text-shadow: -2px 2px rgba(0, 0, 0, .7);
   }
 }
 
