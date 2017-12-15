@@ -259,6 +259,10 @@ h1 {
     line-height: 25px;
   }
 
+  .my-navbar #navbar li {
+    text-align: center;
+  }
+
   #input-list form {
     width: 290px;
   }

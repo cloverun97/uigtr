@@ -94,7 +94,7 @@ html, body {
 }
 
 #home {
-  background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('/static/img/BACKGROUND_IMAGE.JPG') ;
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url("/static/img/BACKGROUND_IMAGE.d985c7d3bfc1.JPG") ;
   background-position: center; 
   background-size: cover;
 }
@@ -121,7 +121,6 @@ html, body {
 h1 {
   display: inline;
 }
-
 .blinking-cursor {
   color: #5DBCD2;
   -webkit-animation: 1s blink step-end infinite;
@@ -186,26 +185,6 @@ h1 {
   }
 }
 
-/*Button beli tiket*/
-#btn-beli-tiket{
-  /*margin: 200px 0 0 0;*/
-  padding: 20px 0 0 0;
-}
-
-#btn-tiket{
-  border-radius: 30px;
-  border : solid #FFFF00;
-  color : #FFFF00;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 200%;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-#btn-beli-tiket #btn-tiket:hover{
-  color: black;
-  background-color: rgba(255, 255, 0, 1);
-}
 
 .footer {
   bottom: 0;

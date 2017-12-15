@@ -6,6 +6,7 @@ $(window).on('load',function(){
 	var split = str.split("");
 	var counter = 0;
 
+	$('#cursor').html('|');
 	var SI = setInterval(function(){
 		var h1 = $("#welcome");
 		h1.append(split[counter]);
@@ -13,8 +14,9 @@ $(window).on('load',function(){
 		if (counter==str.length) {
 			clearInterval(SI)
 			$('#cursor').addClass("blinking-cursor");
+			$('#btn-beli-tiket').show('slow');
 		}
-	}, 120); 
+	}, 120);
 
 });
 
