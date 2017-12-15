@@ -188,7 +188,6 @@ h1 {
 
 /*Button beli tiket*/
 #btn-beli-tiket{
-  /*margin: 200px 0 0 0;*/
   padding: 20px 0 0 0;
 }
 
@@ -293,6 +292,10 @@ h1 {
 
   .full-page .inner .content h1 {
     font-size: 20px;
+  }
+
+  #btn-tiket{
+    font-size: 100%;
   }
 }
 

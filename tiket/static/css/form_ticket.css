@@ -1,3 +1,42 @@
+/*Fullpage css*/
+.full-page {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: table;
+  top: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.full-page .inner{
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  max-width: none;
+}
+
+.full-page .inner .content {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.full-page .inner .content h1 {
+  font-family: 'Quicksand', sans-serif;
+  color: #5DBCD2;
+  text-shadow: -2px 2px rgba(0, 0, 0, .7);
+}
+
+#ticket-form {
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-size: cover;
+  background-position: center;
+  text-align: justify;
+}
+
+
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

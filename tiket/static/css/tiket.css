@@ -1,0 +1,74 @@
+/*Fullpage css*/
+.full-page {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: table;
+  top: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.full-page .inner{
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  max-width: none;
+}
+
+.full-page .inner .content {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.full-page .inner .content h1 {
+  font-family: 'Quicksand', sans-serif;
+  color: #5DBCD2;
+  text-shadow: -2px 2px rgba(0, 0, 0, .7);
+}
+
+#tiket {
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-size: cover;
+  background-position: center;
+  text-align: justify;
+}
+
+
+/*Wrapper*/
+.inner-wrapper{
+	max-width: 400px;
+	padding:40px;
+	border-radius:20px;
+	margin:10px 15px 10px 15px;
+	box-shadow: 2px 4px 3px rgba(0,0,0,0.4);
+	-moz-border-radius:30px;
+	-webkit-border-radius:30px;
+	background-color: rgba(233,233,235,0.7);
+}
+
+.inner-wrapper:hover{
+	background-color: rgba(233,233,235,0.9);
+}
+.col-md-6 a:hover{
+	text-decoration: none;
+}
+.col-sm-6 a:hover{
+	text-decoration: none;
+}
+.inner-wrapper h2{
+  font-family: 'Quicksand', sans-serif;
+}
+
+/*phone*/
+@media only screen and (max-width: 768px){
+	.inner-wrapper{
+		max-width: 80%;
+	}
+	.inner-wrapper h2{
+  		font-size: 25px;
+	}
+
+}

@@ -3,5 +3,33 @@
 {% load static %}
 
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/tiket.css' %}">
+<section class="full-page" id="tiket">
+	<div class="inner">
+		<div class="container">
+			<div class="row">
+				<center>
+					<div class="col-sm-6 col-md-6">
+						<a href="beli">
+							<div class="inner-wrapper fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+								<img src="{% static 'img/access.png' %}" class="img-responsive" width="120">
+								<h2>Beli Tiket</h2>
+							</div>
+						</a>
+					</div>
+				</center>
+				<center>				
+					<div class="col-sm-6 col-md-6">
+						<a href="cari">
+							<div class="inner-wrapper fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
+								<img src="{% static 'img/search.png' %}" class="img-responsive" width="120">
+								<h2>Tracking Pembelian</h2>
+							</div>
+						</a>
+					</div>
+				</center>
+			</div>
+		</div>
+	</div>
+</section>
 {% endblock %}

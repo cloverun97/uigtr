@@ -1,0 +1,12 @@
+.inner-wrapper{
+	padding:40px;
+	border-radius:20px;
+	margin:10px 15px 10px 15px;
+	box-shadow: 2px 4px 3px rgba(0,0,0,0.4);
+	-moz-border-radius:30px;
+	-webkit-border-radius:30px;
+	background-color: rgba(233,233,235,0.7);
+}
+.inner-wrapper:hover{
+	background-color: rgba(233,233,235,0.9);
+}

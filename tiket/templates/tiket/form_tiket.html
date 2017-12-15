@@ -3,7 +3,10 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form_ticket.css' %}" />  
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_ticket.css' %}" />
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+  <div class="inner">
+    <div class="container">
 			<form action="index.html" method="post">
         
         <h1>Sign Up</h1>
@@ -61,5 +64,8 @@
         <button type="submit">Sign Up</button>
         
       </form>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
