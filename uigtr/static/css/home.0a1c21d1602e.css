@@ -1,3 +1,4 @@
+
 html, body {
   margin: 0;
   padding: 0;
@@ -94,7 +95,8 @@ html, body {
 }
 
 #home {
-  background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('/static/img/BACKGROUND_IMAGE.JPG') ;
+  /*background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('https://storage.googleapis.com/uigtr-staticfiles/BACKGROUND_IMAGE.JPG') ;*/
+  
   background-position: center; 
   background-size: cover;
 }

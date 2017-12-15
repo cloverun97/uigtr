@@ -1,3 +1,6 @@
+{% load staticfiles %}
+{% load static %}
+
 <style type="text/css">
 html {
   position: relative;
@@ -31,6 +34,6 @@ body {
 </style>
 
 <div class="container" style="font-size: 13px; ">
-  <span style="float: left;"> <img id="logo-imr-ui" alt="Logo IMR" src="https://storage.googleapis.com/uigtr-staticfiles/imr_ui.png"></span>
+  <span style="float: left;"> <img id="logo-imr-ui" alt="Logo IMR" src="{% static 'img/imr_ui.png' %}"></span>
   <span style="float: right;">Made with 💔 and <span>&#128557;</span> by <a href="https://github.com/cloverun97/uigtr" target="_blank">Kikysu & Rehan</a> </span>
 </div>
