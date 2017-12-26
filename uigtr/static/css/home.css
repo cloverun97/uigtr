@@ -94,19 +94,21 @@ html, body {
 }
 
 #home {
-  background-image:  linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.7)), url('/static/img/BACKGROUND_IMAGE.JPG') ;
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.7)), url('/static/img/BACKGROUND_IMAGE.JPG');
   background-position: center; 
   background-size: cover;
 }
 
 #about {
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url('/static/img/Balairung.jpg');
   background-size: cover;
   background-position: center;
+  font-family: 'Quicksand', sans-serif;
+  color: #5DBCD2;
 }
 
 #activity {
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%) ;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.7)), url('/static/img/TuguZapin.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -116,6 +118,8 @@ html, body {
   background-size: cover;
   background-position: center;
 }
+
+/*About Setting*/
 
 /*Typing animation, blinking cursor*/
 h1 {
@@ -236,15 +240,45 @@ h1 {
 
 
 /*Nani kore*/
-@media only screen and (min-width: 992px) and (max-width: 1199px){
+@media only screen and (min-width: 992px){
+  #about .item {
+    min-height: 450px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  #about img {
+    width: 80%;
+  }
+
+  #about h4 {
+    font-size: 19px;
+    text-align: justify;
+    padding-top: 80px;
+    padding-left: -10px;
+    text-shadow: -1px 1px rgba(0, 0, 0, .7);
+  }
+  
 }
 
 /*tablet*/
 @media only screen and (min-width: 768px) and (max-width: 991px){
+  #about .item {
+    min-height: 280px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  #about img {
+    width: 80%;
+  }
+
+  #about h4 {
+    font-size: 14px;
+    text-align: justify;
+    text-shadow: -1px 1px rgba(0, 0, 0, .7);
+  }
+
 }
 
 /*phone*/
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 767px){
 
   .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #5DBCD2;
@@ -296,6 +330,18 @@ h1 {
 
   #btn-tiket{
     font-size: 100%;
+  }
+
+  /*About page*/
+  #about img {
+    margin-top: 50px;
+    width: 40%;
+  }
+
+  #about h4 {
+    text-align: justify;
+    font-size: 16px;
+    text-shadow: -1px 1px rgba(0, 0, 0, .7);
   }
 }
 

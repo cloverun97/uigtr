@@ -1,4 +1,6 @@
 {% extends "home/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
 
 {% block content %}
 <section class="full-page" id="home">
@@ -15,18 +17,31 @@
 
 <section class="full-page" id="about">
     <div class="inner">
-        <div class="content">
-        	<h1>Tentang</h1>
+        <div class="container">
+            <div class="row">
+                <center>
+                    <div class="item col-sm-6 col-md-6" >
+                        <img id="logo-uigtr" alt="Logo UIGTR" src="{% static 'img/LOGO_UIGTR2018.png' %}">
+                    </div>
+                </center>
+                <div class="item col-sm-6 col-md-6" >            
+                    <h4>UIGTR adalah sebuah program kunjungan rutin dari Ikatan Mahasiswa Universitas Riau dalam sosialisasi Universitas Indonesia, UIGTR sendiri memiliki misi untuk memotivasi siswa-siswi SMA/SMK yang ada di provinsi Riau agar mereka melanjutkan pendidikan di Universitas Indonesia.
+                    <br>
+                    <br>
+                    Tidak hanya memberikan informasi seputaran perkuliahan di Universitas Indonesia, UIGTR juga akan mengunjungi beberapa sekolah yang ada di Riau dan akan mengadakan bedah kampus serta Try Out pada bulan Januari 2018.
+                    <br>
+                    <br>
+                    Untuk kalian siswa-siswi SMA/SMK yang penasaran dengan sosialisasi UIGTR tahun ini, simak selalu timeline kami yaa, karena akan ada acara menarik kedepannya. See you! 😘</h4>
+                </div>                    
+            </div>
         </div>
     </div>
 </section>
 
 <section class="full-page" id="activity">
-    <div class="inner">
-        <div class="content">
-        	<h1>Kegiatan</h1>
-        </div>
-    </div>
+    {% block timeline %}
+    {% include "home/timeline.html" %}
+    {% endblock %}
 </section>
 
 <section class="full-page" id="contact">

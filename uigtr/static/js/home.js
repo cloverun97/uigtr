@@ -16,7 +16,7 @@ $(window).on('load',function(){
 			$('#cursor').addClass("blinking-cursor");
 			$('#btn-beli-tiket').show('slow');
 		}
-	}, 120);
+	}, 100);
 
 });
 

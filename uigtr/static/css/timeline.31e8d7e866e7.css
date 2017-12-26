@@ -1,0 +1,41 @@
+.table {
+	display: table;
+	table-layout:fixed;
+	width: 100%;
+}
+.tableCell {
+	display: table-cell;
+	text-align: center;
+}
+.bulletWrap { position: relative; }
+.bulletWrap .before, .bulletWrap .after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    top: 50%;
+    height: 4px;
+    background: #535353;
+    width: 100%;
+	z-index: -1;
+}
+.bulletWrap .after { width:50%; background: red; }
+.slide a {
+	width: 76px;
+	height: 76px;
+	background: #1c1c1c;
+	color: #ffffff;
+	display: inline-block;
+	border-radius: 100%;
+	border: 4px solid #535353;
+	transition: 0.3s all ease;
+	position: relative;
+}
+.slide a.active, .slide a:hover {
+	background: #e23a18;
+	border-color: #e23a18;
+}
+.slide a i {
+	font-size: 35px;
+	line-height: 76px;
+}

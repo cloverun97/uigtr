@@ -1,0 +1,14 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/status.css' %}" />
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+			<img src="{% static 'img/checked.png' %}">
+		</div>
+	</div>
+</section>
+{% endblock %}

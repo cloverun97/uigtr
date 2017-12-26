@@ -1,0 +1,88 @@
+{% load staticfiles %}
+{% load static %}
+
+{% block timeline %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}">
+<script src="{% static 'js/timeline.js' %}"></script>
+
+<section class="cd-horizontal-timeline">
+
+	<!-- this is timeline -->
+	<div class="timeline">
+		<div class="events-wrapper">
+			<div class="events">
+				<ol>
+					<li><a href="#0" data-date="16/01/2014" class="selected">Bakti Sosial</a></li>
+					<li><a href="#0" data-date="28/02/2014">Car Free Day</a></li>
+					<li><a href="#0" data-date="20/04/2014">Roadshow</a></li>
+					<li><a href="#0" data-date="20/05/2014">Try Out</a></li>
+					<li><a href="#0" data-date="09/07/2014">Company Visit</a></li>
+					<li><a href="#0" data-date="30/08/2014">Bedah Kampus</a></li>
+				</ol>
+
+				<span class="filling-line" aria-hidden="true"></span>
+			</div> <!-- .events -->
+		</div> <!-- .events-wrapper -->
+			
+		<ul class="cd-timeline-navigation">
+			<li><a href="#0" class="prev inactive">Prev</a></li>
+			<li><a href="#0" class="next">Next</a></li>
+		</ul> <!-- .cd-timeline-navigation -->
+	</div> <!-- .timeline -->
+
+
+
+	<!-- EVENTS CONTENT -->
+	<div class="events-content">
+		<ol>
+			<li class="selected" data-date="16/01/2014">
+				<h2>Bakti Sosial</h2>
+				<em>6 Januari 2018</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="28/02/2014">
+				<h2>Car Free Day</h2>
+				<em>7 Januari 2018</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+			
+			<li data-date="20/04/2014">
+				<h2>Roadshow</h2>
+				<em>8-16 Januari 2018</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="20/05/2014">
+				<h2>Try Out</h2>
+				<em>13, 14, 20 Januari 2018</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="09/07/2014">
+				<h2>Company Visit</h2>
+				<em>15 Januari 2018</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="30/08/2014">
+				<h2>Bedah Kampus</h2>
+				<em>Tunggu pengumumannya yaa!</em>
+				<p>	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+		</ol>
+	</div> <!-- .events-content -->
+</section>
+{% endblock %}

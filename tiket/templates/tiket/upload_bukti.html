@@ -1,0 +1,26 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/upload_bukti.css' %}">
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+			<form action="/tiket/status" method="get">
+				
+				<input type="file" multiple>
+				<p>Drag your files here or click in this area.</p>
+				<button type="submit">Upload</button>
+			</form>
+		</div>
+	</div>
+</section>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('form input').change(function () {
+		$('form p').text(this.files.length + " file(s) selected");
+	});
+});
+</script>
+{% endblock %}
