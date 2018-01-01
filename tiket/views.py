@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from uigtr.settings import SAVE_DIRECTORY
-import qrcode
 from django.core.validators import validate_email
-from datetime import datetime, timedelta
-from .models import Siswa, Tiket
 from django.contrib.auth.models import User
 from django.urls import reverse
+from .models import Siswa, Tiket
+from datetime import datetime, timedelta
+import dateutil.parser
+import qrcode
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+
+status_pembayaran_choices = {'Belum dibayar' : '0' ,
+							'Dibayar' : '1',
+							'Menunggu konfirmasi' : '2' ,
+							'Lunas' : '3',
+							'Ditolak' : '4',
+							'Tidak dibayar' : '5' }
 
 def index(request):
 	html = 'tiket/tiket.html'
@@ -14,44 +24,110 @@ def index(request):
 	return render(request, html, response)
 
 def beli_tiket(request):
+	if request.user.is_authenticated :
+		siswa = request.user.siswa
+		tiket = Tiket.objects.filter(siswa = siswa).reverse()[0]
+		if tiket.status_pembayaran == status_pembayaran_choices['Belum dibayar']:
+			return HttpResponseRedirect(reverse('tiket:bayar')) #TRANSFER
+		elif tiket.status_pembayaran == status_pembayaran_choices['Dibayar']:
+			return HttpResponseRedirect(reverse('tiket:upload_bukti')) #UPLOAD FOTO
 	response = {}
 	html = 'tiket/form_tiket.html'
 	return render(request, html, response)
 
+# ==> STEP 2 : ADD FORM 
+
+def bayar(request):
+	if request.user.is_authenticated :
+		siswa = request.user.siswa
+		tiket = Tiket.objects.filter(siswa = siswa).reverse()[0]
+		if tiket.status_pembayaran == status_pembayaran_choices['Dibayar']:
+			return HttpResponseRedirect(reverse('tiket:upload_bukti')) #UPLOAD FOTO
+		else :
+			siswa = request.user.siswa
+			tiket = Tiket.objects.get(siswa=siswa)
+			deadline = tiket.time_remaining.replace(tzinfo=None)
+			if (deadline < datetime.now()):
+				tiket.status_pembayaran = status_pembayaran_choices['Tidak dibayar']
+				return HttpResponseRedirect(reverse('tiket:beli_tiket'))
+			delta_time = deadline - datetime.now()
+			res = {}
+			res["time_remaining"] = delta_time.seconds / 60 #sisa waktu
+			html = 'tiket/bayar_tiket.html'
+			return render(request, html, res)
+	else :
+		print("==>>> COBA BAYAR TANPA LOGIN")
+		response = HttpResponseRedirect(reverse('tiket:beli_tiket'))
+		return response
+
+def transfer(request):
+	if request.method == 'POST':
+		if request.user.is_authenticated :
+			siswa = request.user.siswa
+			tiket = Tiket.objects.filter(siswa = siswa)
+			tiket = tiket.reverse()[0]
+			print('====> ',tiket.status_pembayaran)
+			if tiket.status_pembayaran == status_pembayaran_choices['Dibayar']:
+				return HttpResponseRedirect(reverse('tiket:upload_bukti')) #UPLOAD FOTO
+			else:
+				siswa = request.user.siswa
+				semua_tiket = Tiket.objects.filter(siswa=siswa)
+				current_tiket = semua_tiket.filter(status_pembayaran= status_pembayaran_choices['Belum dibayar']).reverse()[0]
+				print(">>>>> current_tiket: ", current_tiket)
+				current_tiket.status_pembayaran = status_pembayaran_choices['Dibayar']
+				current_tiket.save()
+				return HttpResponseRedirect(reverse('tiket:upload_bukti'))
+		else :
+			print("GA LOGIN :p")
+			print("===>", request.user)
+			return HttpResponseRedirect(reverse('tiket:beli_tiket'))
+	else:
+		print("GA BISA GET TRANSFER :p")
+		return HttpResponseRedirect(reverse('tiket:beli_tiket'))
+
+# SYSTEM BACK DONE, NOT HANDLED: FORWARD/ ACCESS BY URL
+def upload_bukti(request):
+	if request.user.is_authenticated :
+		response = {}
+		html = 'tiket/upload_bukti.html'
+		return render(request, html, response)
+	else :
+		print("===>>>> COBA UPLOAD BUKTI W/O LOGIN, LINK BERUBAH GA?")
+		return HttpResponseRedirect('/tiket/beli')
+
+def tunggu_konfirmasi(request):
+	# CEK IMAGE VALID ATAU ENGGA
+	if request.method == 'POST':
+		bukti_foto = request.POST['bukti_foto']
+		print("===>> bukti foto: ", type(bukti_foto))
+		print("bukti_foto nama = ", bukti_foto.name)
+		if request.user.is_authenticated:
+			siswa = request.user.siswa
+			tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+			print(">>>>> current_tiket: ", tiket)
+			tiket.status_pembayaran = status_pembayaran_choices['Menunggu konfirmasi']
+			tiket.save()
+			return HttpResponseRedirect(reverse('tiket:status'))
+		else : 
+			print(">>>>>> ANONYMOUS USER")
+			return HttpResponseRedirect('/tiket/beli')
+	else:
+		print(">>>>>> COBA UPLOAD BUKTI W/O LOGIN")
+		return HttpResponseRedirect('/tiket/beli')
+
+
+# LOGOUT
 def status(request):
-	if 'user_email' in request.COOKIES:
+	if request.user.is_authenticated :
 		html = 'tiket/status.html'
 		response = {}
-
-
 		file_name = generate_file_name("rehan hawari", "SMA N 1 Pasir Penyu", 2, 9)
 		generate_qrcode("rehan hawari SMA N 1 Pasir Penyu", file_name)
-
 		f()
 		return render(request, html, response)
 	else :
 		print("===>>>> COBA KE STATUS, LINK BERUBAH GA?")
 		return HttpResponseRedirect('/tiket/beli')
-
-def upload_bukti(request):
-	if 'user_email' in request.COOKIES:
-		html = 'tiket/upload_bukti.html'
-		return render(request, html, response)
-	else :
-		print("===>>>> COBA UPLOAD BUKTI W/O COOKIES, LINK BERUBAH GA?")
-		return HttpResponseRedirect('/tiket/beli')
-
-def bayar(request):
-	if 'user_email' in request.COOKIES:
-		delta_time = request.COOKIES.get('time_remaining') - datetime.now()
-		res = {}
-		res["time_remaining"] = delta_time.seconds / 60 #sisa waktu
-		html = 'tiket/bayar_tiket.html'
-		return render(request, html, res)
-	else :
-		print("==>>> COBA MASUK BAYAR TANPA COOKIE. LINK GIMANA YA?")
-		response = HttpResponseRedirect(reverse('tiket:beli_tiket'))
-		return response
 
 def add_form(request):
 	if (request.method == 'POST'):
@@ -66,8 +142,8 @@ def add_form(request):
 
 			# cek siswa
 			try:
-				print("==>>>>>>>>> try cek siswa")
-				print(request.user)
+				# print("==>>>>>>>>> try cek siswa")
+				# print(request.user)
 				# print(request.user.siswa)
 				current_siswa = User.objects.get(email=email)
 			except User.DoesNotExist:
@@ -77,24 +153,27 @@ def add_form(request):
 			
 			if current_siswa == None:
 				new_password = User.objects.make_random_password()
-				user = User.objects.create_user(username=nama, email=email, password=new_password)
-				user.save()
-				siswa = Siswa(user=user, nama=nama, email=email, asal_sekolah=sekolah)
+				new_user = User.objects.create_user(username=nama, email=email, password=new_password)
+				new_user.save()
+				siswa = Siswa(user=new_user, nama=nama, email=email, asal_sekolah=sekolah)
 				siswa.save()
-				print(siswa)
-				print("^^^^")
+				
+				# login
+				user = authenticate(request, username=nama, email=email, password=new_password)
+				if user is not None:
+					login(request, user)
+					print(">>>>>>>>> LOGGED IN")
+					print(">>> ", user)
+				else:
+					print(">>>>>>>>> ERROR GABISA LOGIN")
+					return HttpResponseRedirect('/tiket/beli')
 			else:
 				siswa = current_siswa.siswa
 
-			tiket = Tiket(status_pembayaran = 'Belum lunas', jumlah_tiket_ipa = tiket_ipa, jumlah_tiket_ips = tiket_ips,\
+			tiket = Tiket(status_pembayaran = status_pembayaran_choices['Belum dibayar'], jumlah_tiket_ipa = tiket_ipa, jumlah_tiket_ips = tiket_ips,\
 					lokasi_TO = lokasi_to, created_time = datetime.now(),  time_remaining = datetime.now() + timedelta(minutes = 30), siswa = siswa)
 			tiket.save()
-
-			
-			response = HttpResponseRedirect(reverse('tiket:bayar'))
-			response.set_cookie('user_email', email)
-			response.set_cookie('time_remaining', tiket.time_remaining)
-			return response
+			return HttpResponseRedirect(reverse('tiket:bayar'))
 		else:
 			print(">>>>> FORM TIDAK VALID :P")
 			return HttpResponseRedirect('/tiket/beli')

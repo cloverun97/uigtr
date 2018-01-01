@@ -14,9 +14,9 @@
 				<div class="countdown-label">Time Remaining</div>
 			</div>
 
-			<form action="{% url 'tiket:upload_bukti' %}" id="buttons" method="post">
+			<form action="{% url 'tiket:transfer' %}" id="buttons" method="POST">
 				{% csrf_token %}
-		        <button class="btn green" type="submit"  type="submit">Saya sudah transfer!</button>
+		        <button class="btn green" type="submit" >Saya sudah transfer!</button>
 			</form>
 
 		</div>

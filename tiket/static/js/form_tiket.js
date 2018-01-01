@@ -2,7 +2,11 @@ function calculate() {
 	var total_price = 0;
 	total_price = calculate_ipa(total_price);
 	total_price = calculate_ips(total_price);
-	show_total_price(total_price);
+	var ipa = $("#tiket-ipa").val()
+	var ips = $("#tiket-ips").val()
+	if (ipa >= 0 && ips >= 0) {
+		show_total_price(total_price);
+	}
 }
 
 function calculate_ipa(total_price) {
@@ -60,36 +64,6 @@ $(document).ready(function() {
 						min: 0
 					}
 				},
-				messages: {
-					required: "Field ini harus diisi",
-					maxlength: "Maksimum 40 karakter",
-					email: "Harap masukkan email",
-					number: "Harap masukkan angka",
-					min: "Tiket tidak boleh negatif"
-
-					// user_name: {
-					// 	required: "Field ini harus diisi",
-					// 	maxlength: "Maksimum 40 karakter"
-					// },
-					// user_email: {
-					// 	required: "Field ini harus diisi",
-					// 	email: "Harap masukkan email"
-					// },
-					// user_school: {
-					// 	required: "Field ini harus diisi",
-					// 	maxlength: "Maksimum 40 karakter"
-					// },
-					// tiket_ipa : {
-					// 	required: "Field ini harus diisi",
-					// 	number: "Harap masukkan angka",
-					// 	min: "Tiket tidak boleh negatif"
-					// },
-					// tiket_ips : {
-					// 	required: "Field ini harus diisi",
-					// 	number: "Harap masukkan angka",
-					// 	min: "Tiket tidak boleh negatif"
-					// }
-			},
 			submitHandler: function(form) {
 				form.submit();
 			}

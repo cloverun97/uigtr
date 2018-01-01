@@ -4,15 +4,36 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/upload_bukti.css' %}">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script type="text/javascript" src="{% static 'js/upload_bukti.js' %}"></script>
+<style type="text/css">
+	* {
+	  font-family: 'Quicksand', sans-serif;
+	}
+	.title-upload {
+		margin-bottom: 400px;
+	}
+	.title-upload h1{
+		color: #5DBCD2;
+	}
+</style>
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
 	<div class="inner">
 		<div class="container">
-
-			<form action="{% url 'tiket:status' %}" method="get">
-				<input type="file" multiple>
-				<p>Drag your files here or click in this area.</p>
-				<button type="submit">Upload</button>
-			</form>
+			<div class="title-upload">
+				<center>
+					<h1>Upload Bukti Pembayaran</h1>
+				</center>
+			</div>
+			<div>
+				<form action="{% url 'tiket:tunggu_konfirmasi' %}" method="POST" id="form-upload">
+					{% csrf_token %}
+					<input type="file" name="bukti_foto">
+						<p style="  font-family: 'Quicksand', sans-serif;">Drag foto bukti pembayaran kesini atau klik area ini.</p>
+					<button type="submit">Upload</button>
+				</form>
+			</div>
 
 		</div>
 	</div>

@@ -16,3 +16,4 @@ whitenoise==3.3.0
 wrapt==1.10.11
 pillow
 qrcode
+django-tastypie
