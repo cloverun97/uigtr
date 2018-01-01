@@ -21,6 +21,9 @@ status_pembayaran_choices = {'Belum dibayar' : '0' ,
 							'Ditolak' : '4',
 							'Tidak dibayar' : '5' }
 
+st_pembayaran_lst = ['Belum dibayar', 'Dibayar', 'Menunggu konfirmasi', 'Lunas', 'Ditolak', 'Tidak dibayar']
+lk_to_lst = ['Pekanbaru', 'Bangkinang', 'Duri', 'Dumai', 'Pangkalan Kerinci']
+
 def index(request):
 	html = 'tiket/tiket.html'
 	response = {}
@@ -120,27 +123,6 @@ def tunggu_konfirmasi(request):
 			tiket.bukti_pembayaran.save(bukti_foto.name, bukti_foto)
 			tiket.status_pembayaran = status_pembayaran_choices['Menunggu konfirmasi']
 			tiket.save()
-
-
-			nama = siswa.nama
-			sekolah = siswa.asal_sekolah
-			lokasi = int(tiket.lokasi_TO)
-			ipa = int(tiket.jumlah_tiket_ipa)
-			ips = int(tiket.jumlah_tiket_ips)
-
-			message = qr_code_message(nama, sekolah, lokasi, ipa, ips)
-			file_name = generate_file_name(nama, sekolah, ipa, ips)
-
-			img = generate_qrcode(message, file_name)
-			img_io = BytesIO()
-			img.save(img_io, format='JPEG')
-			image_file = InMemoryUploadedFile(img_io, None, file_name, 'image/jpeg', img_io.getbuffer().nbytes, None)
-			print(">>>>> BERHASIL SAVE! image type : ", type(img))
-
-			tiket.qr_code_image.save(file_name, image_file)
-			tiket.save()
-
-
 			return HttpResponseRedirect(reverse('tiket:status'))
 		else : 
 			print(">>>>>> ANONYMOUS USER")
@@ -152,19 +134,61 @@ def tunggu_konfirmasi(request):
 
 # LOGOUT
 def status(request):
+	response = {}
+	html = 'tiket/status.html'
 	if request.user.is_authenticated :
 		siswa = request.user.siswa
 		tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
-
-		response = {}
-		html = 'tiket/status.html'
-		response['qrcode'] = tiket.qr_code_image
-		print("nih >>>> ", tiket.qr_code_image)
-		print("url ==>> ", tiket.qr_code_image.url)
+		response['siswa'] = siswa
+		response['tiket'] = tiket
+		response['status_pembayaran'] = st_pembayaran_lst[ int(tiket.status_pembayaran) ]
+		response['lokasi_to'] = lk_to_lst[ int(tiket.lokasi_TO) ]
 		return render(request, html, response)
 	else :
 		print("===>>>> COBA KE STATUS, LINK BERUBAH GA?")
 		return HttpResponseRedirect('/tiket/beli')
+
+@login_required
+def verif(request):
+	if request.user.is_superuser and request.method == 'POST':
+		email = request.POST['email']
+		if create_qrcode_by_email(email):
+			return HttpResponseRedirect('Success!')
+		else :
+			return HttpResponseRedirect('Error! Tanya Rehan')
+	elif request.user.is_superuser:
+		response = {}
+		html = 'tiket/verif.html'
+		return render(request, html, response)
+	else :
+		print("===>>>> BUKAN ADMIN GABOLEH MASUK :p")
+		return HttpResponseRedirect('/tiket/beli')
+
+def create_qrcode_by_email(email):
+	try:
+		siswa = User.objects.get(email=email).siswa
+		tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+
+		nama = siswa.nama
+		sekolah = siswa.asal_sekolah
+		lokasi = int(tiket.lokasi_TO)
+		ipa = int(tiket.jumlah_tiket_ipa)
+		ips = int(tiket.jumlah_tiket_ips)
+
+		message = qr_code_message(nama, sekolah, lokasi, ipa, ips)
+		file_name = generate_file_name(nama, sekolah, ipa, ips)
+
+		img = generate_qrcode(message, file_name)
+		img_io = BytesIO()
+		img.save(img_io, format='JPEG')
+		image_file = InMemoryUploadedFile(img_io, None, file_name, 'image/jpeg', img_io.getbuffer().nbytes, None)
+		print(">>>>> BERHASIL SAVE! image type : ", type(img))
+
+		tiket.qr_code_image.save(file_name, image_file)
+		tiket.save()
+		return True
+	except:
+		return False
 
 
 # BUFFER

@@ -10,8 +10,20 @@
 		<center>
 			<h1>Status</h1>
 		</center>
-			<img src="{{qrcode.url}}">
-			<img src="{% static 'img/checked.png' %}">
+		<p>Nama : {{siswa.nama}}</p>
+		<p>Email : {{siswa.email}}</p>
+		<p>Asal Sekolah : {{siswa.asal_sekolah}}</p>
+		<p>Tiket Saintek : {{tiket.jumlah_tiket_ipa}}</p>
+		<p>Tiket Soshum : {{tiket.jumlah_tiket_ips}}</p>
+		<p>Lokasi Try Out : {{lokasi_to}}</p>
+		<p>Status Pembayaran : {{status_pembayaran}}</p>
+		{% if status_pembayaran == "Lunas" %}
+			<p>QRCode :</p>
+			<img src="{{tiket.qr_code_image.url}}">
+        {% endif %}
+
+
+			<!-- <img src="{% static 'img/checked.png' %}"> -->
 		</div>
 	</div>
 </section>

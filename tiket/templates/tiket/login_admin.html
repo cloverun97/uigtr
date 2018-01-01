@@ -1,0 +1,20 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+			<form method="POST">
+				{% csrf_token %}
+				<p style="  font-family: 'Quicksand', sans-serif;">username :</p>
+				<input type="text" name="username">
+				<p style="  font-family: 'Quicksand', sans-serif;">password :</p>
+				<input type="password" name="password">
+				<button type="submit">login</button>
+			</form>
+		</div>
+	</div>
+</section>
+{% endblock %}

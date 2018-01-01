@@ -1,0 +1,18 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+			<form method="POST">
+				{% csrf_token %}
+				<p style="  font-family: 'Quicksand', sans-serif;">Masukkan email untuk generate QRCode:</p>
+				<input type="email" name="email">
+				<button type="submit">generate</button>
+			</form>
+		</div>
+	</div>
+</section>
+{% endblock %}
