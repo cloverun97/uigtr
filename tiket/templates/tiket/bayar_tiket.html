@@ -7,13 +7,14 @@
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
 	<div class="inner">
 		<div class="container">
-			<input type="hidden" id="set-time" value="1"/>
-			<div id="countdown">
+			<input type="hidden" id="set-time" value="{{ time_remaining }}"/>
 
+			<div id="countdown">
 				<div id='tiles' class="color-full"></div>
 				<div class="countdown-label">Time Remaining</div>
 			</div>
-			<form action="upload" id="buttons" method="post">
+
+			<form action="{% url 'tiket:upload_bukti' %}" id="buttons" method="post">
 				{% csrf_token %}
 		        <button class="btn green" type="submit"  type="submit">Saya sudah transfer!</button>
 			</form>
@@ -21,6 +22,8 @@
 		</div>
 	</div>
 </section>
+
+
 <script type="text/javascript">
 var minutes = $( '#set-time' ).val();
 

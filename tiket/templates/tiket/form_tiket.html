@@ -4,36 +4,34 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form_ticket.css' %}" />
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{% static 'js/form_tiket.js' %}"></script>
+<script type="text/javascript">
+ 
+</script>
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
   <div class="inner">
     <div class="container">
-			<form action="bayar" method="post">
+
+      <form action="{% url 'tiket:add_form' %}" method="POST" id="form-tiket" autocomplete="on">
         {% csrf_token %}
         <h1>Beli Tiket</h1>
         
         <fieldset>
-          
+
           <legend><span class="number">1</span> Informasi dasar</legend>
-          
           <input type="text" id="name" name="user_name" placeholder="Nama Lengkap*">
-          
           <input type="email" id="mail" name="user_email" placeholder="Email*">
+          <input type="text" id="school" name="user_school" placeholder="Asal Sekolah*" autocomplete="on">
 
-          <input type="text" id="school" name="user_school" placeholder="Asal Sekolah*">
-
-<!--            <input type="password" id="password" name="user_password" placeholder="Choose a Password*">
-          
-          <label>Age:</label>
-          <input type="radio" id="under_18" value="under_18" name="user_age"><label for="under_18" class="light">Under 18</label><br>
-          <input type="radio" id="over_18" value="over_18" name="user_age"><label for="over_18" class="light">18 or Older</label>
-         -->
         </fieldset>
+
         <fieldset class="profile">
-          
+
           <legend><span class="number">2</span> Informasi Pembelian Tiket</legend>
 
           <label for="lokasi-TO">Lokasi Try Out:</label>
-          <select id="lokasi-TO" name="user_location">
+          <select id="lokasi-TO" name="tryout_location" autocomplete="off">
               <option value="Pekanbaru">Pekanbaru</option>
               <option value="Bangkinang">Bangkinang</option>
               <option value="Duri">Duri</option>
@@ -42,32 +40,13 @@
           </select>
 
           <label for="tiket-saintek">Jumlah Tiket Saintek:</label>
-          <select id="tiket-saintek" name="user_ipa">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-          </select>
+          <input type="number" name="tiket_ipa" value="0" id="tiket-ipa" onchange="calculate()" autocomplete="off">
 
           <label for="tiket-soshum">Jumlah Tiket Soshum:</label>
-          <select id="tiket-soshum" name="user_ips">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-          </select>
-
-<!--           <label>Interests:</label>
-          <input type="checkbox" id="development" value="interest_development" name="user_interest">
-          <label class="light" for="development">Development</label><br>
-          <input type="checkbox" id="design" value="interest_design" name="user_interest">
-          <label class="light" for="design">Design</label><br>
-          <input type="checkbox" id="business" value="interest_business" name="user_interest">
-          <label class="light" for="business">Business</label> -->
+          <input type="number" name="tiket_ips" value="0" id="tiket-ips" onchange="calculate()" autocomplete="off">
+          <div id="total-amount"></div>
         </fieldset>
-        <button type="submit"> Beli Tiket!</button>
+        <button type="submit">Beli Tiket!</button>
         
       </form>
     </div>

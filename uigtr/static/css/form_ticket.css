@@ -1,3 +1,9 @@
+/*Error message*/
+div .error {
+  color: red !important;
+  margin-top: -2em;
+}
+
 /*Fullpage css*/
 *{
     font-family: 'Quicksand', sans-serif;

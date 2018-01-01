@@ -7,12 +7,13 @@
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
 	<div class="inner">
 		<div class="container">
-			<form action="/tiket/status" method="get">
-				
+
+			<form action="{% url 'tiket:status' %}" method="get">
 				<input type="file" multiple>
 				<p>Drag your files here or click in this area.</p>
 				<button type="submit">Upload</button>
 			</form>
+
 		</div>
 	</div>
 </section>
