@@ -44,9 +44,7 @@ def save_user_profile(sender, instance, **kwargs):
     # send email part - do your self
 
 def upload_location(instance, filename):
-	return "%s/%s" %(instance.id, filename)
-
-
+	return "%s/%s" %(instance.siswa.email, filename)
 
 class Tiket(models.Model):
 	STATUS_PEMBAYARAN_CHOICES = (
@@ -69,13 +67,7 @@ class Tiket(models.Model):
 	jumlah_tiket_ipa = models.IntegerField(default=0)
 	jumlah_tiket_ips = models.IntegerField(default=0)
 	lokasi_TO = models.CharField(max_length=1, choices=LOKASI_TO_CHOICES, default=PKU)
-	bukti_pembayaran = models.ImageField(upload_to=upload_location,
-		null = True,
-		blank=True,
-		width_field = "width_field",
-		height_field = "height_field")
-	height_field = models.IntegerField(default=0, blank=True)
-	width_field = models.IntegerField(default=0, blank=True)
+	bukti_pembayaran = models.ImageField(upload_to=upload_location, null=True, blank=True)
 	created_time = models.DateTimeField()
 	time_remaining = models.DateTimeField()
 	siswa = models.ForeignKey(Siswa, on_delete=models.CASCADE, related_name='tikets')

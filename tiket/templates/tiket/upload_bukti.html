@@ -27,9 +27,9 @@
 				</center>
 			</div>
 			<div>
-				<form action="{% url 'tiket:tunggu_konfirmasi' %}" method="POST" id="form-upload">
+				<form action="{% url 'tiket:tunggu_konfirmasi' %}" method="POST" id="form-upload" enctype='multipart/form-data'>
 					{% csrf_token %}
-					<input type="file" name="bukti_foto">
+					<input type="file" name="bukti_foto" >
 						<p style="  font-family: 'Quicksand', sans-serif;">Drag foto bukti pembayaran kesini atau klik area ini.</p>
 					<button type="submit">Upload</button>
 				</form>

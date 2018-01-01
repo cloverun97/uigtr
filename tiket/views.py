@@ -6,10 +6,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from .models import Siswa, Tiket
 from datetime import datetime, timedelta
-import dateutil.parser
-import qrcode
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from .forms import UploadFileForm
+from io import StringIO, BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import dateutil.parser
+import qrcode
 
 status_pembayaran_choices = {'Belum dibayar' : '0' ,
 							'Dibayar' : '1',
@@ -60,12 +63,17 @@ def bayar(request):
 		response = HttpResponseRedirect(reverse('tiket:beli_tiket'))
 		return response
 
+# BUFFER
 def transfer(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated :
 			siswa = request.user.siswa
 			tiket = Tiket.objects.filter(siswa = siswa)
-			tiket = tiket.reverse()[0]
+			try:
+				tiket = tiket.reverse()[0]
+			except :
+				print("==> ERROR KARENA BACK, ")
+				return HttpResponseRedirect(reverse('tiket:upload_bukti'))
 			print('====> ',tiket.status_pembayaran)
 			if tiket.status_pembayaran == status_pembayaran_choices['Dibayar']:
 				return HttpResponseRedirect(reverse('tiket:upload_bukti')) #UPLOAD FOTO
@@ -88,25 +96,51 @@ def transfer(request):
 # SYSTEM BACK DONE, NOT HANDLED: FORWARD/ ACCESS BY URL
 def upload_bukti(request):
 	if request.user.is_authenticated :
+		# form = UploadFileForm()
 		response = {}
+		# response['form'] = form
 		html = 'tiket/upload_bukti.html'
 		return render(request, html, response)
 	else :
 		print("===>>>> COBA UPLOAD BUKTI W/O LOGIN, LINK BERUBAH GA?")
 		return HttpResponseRedirect('/tiket/beli')
 
+# BUFFER
 def tunggu_konfirmasi(request):
 	# CEK IMAGE VALID ATAU ENGGA
 	if request.method == 'POST':
-		bukti_foto = request.POST['bukti_foto']
-		print("===>> bukti foto: ", type(bukti_foto))
-		print("bukti_foto nama = ", bukti_foto.name)
-		if request.user.is_authenticated:
+		bukti_foto = request.FILES['bukti_foto']
+		print(">>> bukti foto : ", type(bukti_foto))
+		print(">>> bukti_foto nama = ", bukti_foto.name)
+		if is_file_valid(bukti_foto.name) and request.user.is_authenticated:
 			siswa = request.user.siswa
 			tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+
 			print(">>>>> current_tiket: ", tiket)
+			tiket.bukti_pembayaran.save(bukti_foto.name, bukti_foto)
 			tiket.status_pembayaran = status_pembayaran_choices['Menunggu konfirmasi']
 			tiket.save()
+
+
+			nama = siswa.nama
+			sekolah = siswa.asal_sekolah
+			lokasi = int(tiket.lokasi_TO)
+			ipa = int(tiket.jumlah_tiket_ipa)
+			ips = int(tiket.jumlah_tiket_ips)
+
+			message = qr_code_message(nama, sekolah, lokasi, ipa, ips)
+			file_name = generate_file_name(nama, sekolah, ipa, ips)
+
+			img = generate_qrcode(message, file_name)
+			img_io = BytesIO()
+			img.save(img_io, format='JPEG')
+			image_file = InMemoryUploadedFile(img_io, None, file_name, 'image/jpeg', img_io.getbuffer().nbytes, None)
+			print(">>>>> BERHASIL SAVE! image type : ", type(img))
+
+			tiket.qr_code_image.save(file_name, image_file)
+			tiket.save()
+
+
 			return HttpResponseRedirect(reverse('tiket:status'))
 		else : 
 			print(">>>>>> ANONYMOUS USER")
@@ -119,16 +153,21 @@ def tunggu_konfirmasi(request):
 # LOGOUT
 def status(request):
 	if request.user.is_authenticated :
-		html = 'tiket/status.html'
+		siswa = request.user.siswa
+		tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+
 		response = {}
-		file_name = generate_file_name("rehan hawari", "SMA N 1 Pasir Penyu", 2, 9)
-		generate_qrcode("rehan hawari SMA N 1 Pasir Penyu", file_name)
-		f()
+		html = 'tiket/status.html'
+		response['qrcode'] = tiket.qr_code_image
+		print("nih >>>> ", tiket.qr_code_image)
+		print("url ==>> ", tiket.qr_code_image.url)
 		return render(request, html, response)
 	else :
 		print("===>>>> COBA KE STATUS, LINK BERUBAH GA?")
 		return HttpResponseRedirect('/tiket/beli')
 
+
+# BUFFER
 def add_form(request):
 	if (request.method == 'POST'):
 		if (is_valid_form(request)):
@@ -220,12 +259,10 @@ def is_int(num):
 	except:
 		return False
 
-def create_qr_code(nama, sekolah, lokasi_TO, ipa, ips):
+def qr_code_message(nama, sekolah, lokasi_TO, ipa, ips):
 	print(">>>> CREATING QR CODE | BEFORE BUAT MESSAGE")
 	message = '33'
-		# ('4', 'Pangkalan kerinci'),
 
-	# 21= PKL KERINCI
 	if lokasi_TO == 0: #PEKANBARU
 		message += '23'
 	elif lokasi_TO == 1: #BANGKINANG
@@ -234,20 +271,21 @@ def create_qr_code(nama, sekolah, lokasi_TO, ipa, ips):
 		message += '22'
 	elif lokasi_TO == 3: #DUMAI
 		message += '20'
-	elif lokasi_TO == 4:
+	elif lokasi_TO == 4: #PKK
 		message += '21'
 	else :
 		message += '00'
 
 	message += '.'
-	message += str(ipa + ips) #JMLAH TIKET
+	message += modify_tiket(str(ipa + ips)) #JMLAH TIKET
 	new_ipa = modify_tiket(ipa)
 	new_ips = modify_tiket(ips)
 	message = message + new_ipa + new_ips
 	message += '.331998' #GINA BDAY
 
-	file_name = generate_file_name(nama, sekolah, ipa, ips)
-	generate_qrcode(message, file_name)
+	return message
+
+	return generate_qrcode(message, file_name)
 
 def generate_file_name(nama, sekolah, ipa, ips):
 	# NAMA_NAMASEKOLAH_2IPA1IPS.png
@@ -256,9 +294,11 @@ def generate_file_name(nama, sekolah, ipa, ips):
 	ekstensi = ".PNG"
 	if ipa != 0 and ips != 0:
 		return nama + "_" + sekolah + "_" + str(ipa) + "IPA" + str(ips) + "IPS" + ekstensi
-	if ipa == 0:
+	if ipa != 0:
 		return nama + "_" + sekolah + "_" + str(ipa) + "IPA" + ekstensi
-	return nama + "_" + sekolah + "_" + str(ips) + "IPS" + ekstensi
+	if ips != 0:
+		return nama + "_" + sekolah + "_" + str(ips) + "IPS" + ekstensi
+	return nama + "_" + sekolah + "_" + '0' + "IPA" + '0' + 'IPS' + '_Cek_Database' + ekstensi
 
 def generate_qrcode(message, file_name):
 	qr = qrcode.QRCode(
@@ -271,7 +311,6 @@ def generate_qrcode(message, file_name):
 	qr.add_data(data)
 	qr.make(fit=True)
 	img = qr.make_image()
-	img.save(SAVE_DIRECTORY + file_name, 'PNG')
 	return img
 
 def modify_tiket(n):
@@ -281,3 +320,7 @@ def modify_tiket(n):
 		return '0' + str(n)
 	else :
 		return '_' + str(n)
+
+def is_file_valid(name):
+	ekstensi = name.split(".")[-1]
+	return ekstensi == 'jpeg' or ekstensi == 'jpg' or ekstensi == 'png'

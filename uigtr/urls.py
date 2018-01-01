@@ -21,6 +21,7 @@ from django.views.static import serve
 import home.urls as home
 from home.views import index
 import tiket.urls as tiket
+from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
@@ -29,8 +30,4 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-	urlpatterns += [
-		url(r'^media/(?P<path>.*)$', serve, {
-			'document_root': settings.MEDIA_ROOT,
-		}),
-	]
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
