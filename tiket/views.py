@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login
 from .forms import UploadFileForm
 from io import StringIO, BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
-import dateutil.parser
 import qrcode
 
 status_pembayaran_choices = {'Belum dibayar' : '0' ,
