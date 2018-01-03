@@ -1,0 +1,51 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/status.css' %}" />
+<style type="text/css">
+	*{
+		text-align: center;
+  		font-family: 'Quicksand', sans-serif;
+  		color: #5DBCD2;
+	}
+	.my-box{
+		margin-bottom: 5%;
+	}
+</style>
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+		<center>
+			<div style="margin-bottom: 5%;">
+				<h1 style="color:yellow">Status</h1>
+			</div>
+		</center>
+		<center>
+			<p>Nama : {{siswa.nama}}</p>
+			<p>Email : {{siswa.email}}</p>
+			<p>Asal Sekolah : {{siswa.asal_sekolah}}</p>
+			{% for ipa,ips,lokasi,status,the_url in zipped %}
+				{% for i in ipa %}
+				<div class="my-box">
+					<p>Tiket Saintek : {{ipa.forloop.counter0}}</p>
+					<p>Tiket Soshum : {{ips.forloop.counter0}}</p>
+					<p>Lokasi Try Out : {{ lokasi.forloop.counter0 }}</p>
+					<p>Status Pembayaran : {{ status.forloop.counter0 }}</p>
+					{% if status.forloop.counter0 == "Lunas" %}
+						<p>QRCode :</p>
+						<img src="{{ the_url.forloop.counter0 }}">
+			        {% endif %}
+				</div>
+				{% endfor %}
+			{% endfor %}
+		</center>
+
+
+
+			<!-- <img src="{% static 'img/checked.png' %}"> -->
+		</div>
+	</div>
+</section>
+{% endblock %}

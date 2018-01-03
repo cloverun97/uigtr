@@ -1,0 +1,28 @@
+{% extends "tiket/layout/base.html" %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cari.css' %}" />
+<section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
+	<div class="inner">
+		<div class="container">
+		<center>
+			<div style="margin-bottom: 5%;">
+				<h1 style="color:yellow">Tracking Pembelian</h1>
+			</div>
+		</center>
+		<center>
+			{%if message %}
+				<p style="color:red;"> {{message}}</p>
+			{% endif %}
+			<form id="searchthis" action="{% url 'tiket:find' %}" style="display:inline;" method="POST">
+		        {% csrf_token %}
+				<input id="namanyay-search-box" name="email" size="40" type="text" placeholder="Email*"/>
+				<input id="namanyay-search-btn" value="Tracking" type="submit"/>
+			</form>
+		</center>
+		</div>
+	</div>
+</section>
+{% endblock %}

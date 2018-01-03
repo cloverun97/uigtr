@@ -362,3 +362,54 @@ def calculate_amount(ipa, ips, int_lokasi_TO):
 		return 32000*(ipa+ips)
 	else :
 		return 30000*(ipa+ips)
+
+def cari(request):
+	response = {}
+	html = 'tiket/status.html'
+	if request.user.is_authenticated :
+		siswa = request.user.siswa
+		tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+		response['siswa'] = siswa
+		response['tiket'] = tiket
+		response['status_pembayaran'] = st_pembayaran_lst[ int(tiket.status_pembayaran) ]
+		response['lokasi_to'] = lk_to_lst[ int(tiket.lokasi_TO) ]
+		return render(request, html, response)
+	else :
+		html = 'tiket/cari.html'
+		return render(request, html, response)
+
+def find(request):
+	response = {}
+	email = request.POST['email']
+	print(">>>>>", email)
+	try:
+		siswa = User.objects.get(email=email).siswa
+	except Exception as e:
+		response['message'] = "Tiket tidak dapat ditemukan :("
+		html = 'tiket/cari.html'
+		return render(request, html, response)
+	tikets = Tiket.objects.filter(siswa=siswa)
+	zipped = tikets_to_zip(tikets)
+	print(zipped)
+	a,b,c,d,e = zipped
+	print(a,b,c,d,e)
+	response['siswa'] = siswa
+	response['zipped'] = zipped
+	html = 'tiket/tracking.html'
+	return render(request, html, response)
+
+def tikets_to_zip(tikets):
+	ret = []
+	for tiket in tikets:
+		lst = []
+		lst.append(tiket.jumlah_tiket_ipa)
+		lst.append(tiket.jumlah_tiket_ips)
+		lst.append(lk_to_lst[ int(tiket.lokasi_TO) ])
+		lst.append(st_pembayaran_lst[ int(tiket.status_pembayaran) ])
+		if tiket.status_pembayaran == '3':
+			lst.append(tiket.qr_code_image.url)
+		else :
+			lst.append('none')
+		ret.append(lst)
+	print(ret)
+	return zip(*ret)
