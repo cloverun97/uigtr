@@ -3,16 +3,29 @@
 {% load static %}
 
 {% block content %}
+<style type="text/css">
+	h1,h3, #time-remaining{
+		font-family: 'Quicksand', sans-serif;
+  		color: #5DBCD2;
+	}
+</style>
 <link rel="stylesheet" type="text/css" href="{% static 'css/bayar_tiket.css' %}" />
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
 	<div class="inner">
 		<div class="container">
 			<input type="hidden" id="set-time" value="{{ time_remaining }}"/>
-
-			<div id="countdown">
-				<div id='tiles' class="color-full"></div>
-				<div class="countdown-label">Time Remaining</div>
-			</div>
+			<center>
+				<div style="margin-bottom: 5%;">
+					<h1 style="color:yellow">Pembayaran</h1>
+				</div>
+				<div style="margin-bottom: 5%;">
+					<h3>Silakan melakukan pembayaran ke BNI 0599877433 a.n. Adilla Pratiwi sebesar Rp {{amount}}</h3>
+				</div>
+				<div id="countdown">
+					<div id='tiles' class="color-full"></div>
+					<div class="countdown-label" id="time-remaining">Waktu tersisa</div>
+				</div>
+			</center>
 
 			<form action="{% url 'tiket:transfer' %}" id="buttons" method="POST">
 				{% csrf_token %}
