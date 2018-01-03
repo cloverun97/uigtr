@@ -70,8 +70,8 @@
   		font-size: 25px;
 	}
 
-  #beli-tiket-box{
-    margin-top: 15%;
+  .container.row #beli-tiket-box{
+    margin-top: 20%;
   }
 
 }

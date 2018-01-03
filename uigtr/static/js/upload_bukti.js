@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 	$(function() {
 		$("#form-upload").validate({
@@ -5,6 +6,7 @@ $(document).ready(function() {
 			rules: {
 				bukti_foto: {
 					required: true,
+					extension: "png|jpe?g|gif"
 				}
 			},
 			submitHandler: function(form) {
@@ -13,3 +15,21 @@ $(document).ready(function() {
 		});
 	});
 });
+
+// $(document).ready(function(){
+//     $("#add-task").validate({
+//         rules: {
+//             description: {
+//                 maxlength : 200
+//             }
+//         },
+//         messages: {
+//             description : {
+//                 maxlength : "Maximum description length is 200 characters"
+//             }
+//         },
+//         submitHandler: function(form) {
+//             form.submit();
+//         }
+//     });
+// });
