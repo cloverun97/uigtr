@@ -58,6 +58,9 @@ def bayar(request):
 			delta_time = deadline - datetime.now()
 			res = {}
 			res["time_remaining"] = delta_time.seconds / 60 #sisa waktu
+
+			amount = calculate_amount(int(tiket.jumlah_tiket_ipa), int(tiket.jumlah_tiket_ips), int(tiket.lokasi_TO))
+			res["amount"] = amount
 			html = 'tiket/bayar_tiket.html'
 			return render(request, html, res)
 	else :
@@ -353,3 +356,9 @@ def modify_tiket(n):
 def is_file_valid(name):
 	ekstensi = name.split(".")[-1]
 	return ekstensi == 'jpeg' or ekstensi == 'jpg' or ekstensi == 'png'
+
+def calculate_amount(ipa, ips, int_lokasi_TO):
+	if int_lokasi_TO == 0:
+		return 32000*(ipa+ips)
+	else :
+		return 30000*(ipa+ips)
