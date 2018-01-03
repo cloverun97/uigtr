@@ -111,21 +111,27 @@ def upload_bukti(request):
 def tunggu_konfirmasi(request):
 	# CEK IMAGE VALID ATAU ENGGA
 	if request.method == 'POST':
-		bukti_foto = request.FILES['bukti_foto']
-		print(">>> bukti foto : ", type(bukti_foto))
-		print(">>> bukti_foto nama = ", bukti_foto.name)
-		if is_file_valid(bukti_foto.name) and request.user.is_authenticated:
-			siswa = request.user.siswa
-			tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
+		try:
+			bukti_foto = request.FILES['bukti_foto']
+			print(">>> bukti foto : ", type(bukti_foto))
+			print(">>> bukti_foto nama = ", bukti_foto.name)
+			if is_file_valid(bukti_foto.name) and request.user.is_authenticated:
+				siswa = request.user.siswa
+				tiket = Tiket.objects.filter(siswa=siswa).reverse()[0]
 
-			print(">>>>> current_tiket: ", tiket)
-			tiket.bukti_pembayaran.save(bukti_foto.name, bukti_foto)
-			tiket.status_pembayaran = status_pembayaran_choices['Menunggu konfirmasi']
-			tiket.save()
-			return HttpResponseRedirect(reverse('tiket:status'))
-		else : 
-			print(">>>>>> ANONYMOUS USER")
-			return HttpResponseRedirect('/tiket/beli')
+				print(">>>>> current_tiket: ", tiket)
+				tiket.bukti_pembayaran.save(bukti_foto.name, bukti_foto)
+				tiket.status_pembayaran = status_pembayaran_choices['Menunggu konfirmasi']
+				tiket.save()
+				return HttpResponseRedirect(reverse('tiket:status'))
+			else : 
+				print(">>>>>> ANONYMOUS USER")
+				return HttpResponseRedirect('/tiket/beli')
+		except :
+			response = {}
+			response['message'] = "Mohon pilih foto (format jpg, jpeg, gif) terlebih dahulu, kemudian tekan tombol upload."
+			html = 'tiket/upload_bukti.html'
+			return render(request, html, response)
 	else:
 		print(">>>>>> COBA UPLOAD BUKTI W/O LOGIN")
 		return HttpResponseRedirect('/tiket/beli')
