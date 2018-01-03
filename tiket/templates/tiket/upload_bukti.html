@@ -4,7 +4,7 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/upload_bukti.css' %}">
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script type="text/javascript" src="{% static 'js/upload_bukti.js' %}"></script>
 <style type="text/css">
@@ -27,10 +27,14 @@
 				</center>
 			</div>
 			<div>
+				<p style="color:red; font-family: 'Quicksand', sans-serif;">{%if message %} 
+					{{message}}
+					{% endif %}
+				</p>
 				<form action="{% url 'tiket:tunggu_konfirmasi' %}" method="POST" id="form-upload" enctype='multipart/form-data'>
 					{% csrf_token %}
 					<input type="file" name="bukti_foto" >
-						<p style="  font-family: 'Quicksand', sans-serif;">Drag foto bukti pembayaran kesini atau klik area ini.</p>
+						<p style="font-family: 'Quicksand', sans-serif;">Drag foto bukti pembayaran kesini atau klik area ini.</p>
 					<button type="submit" id="button-upload">Upload</button>
 				</form>
 			</div>
