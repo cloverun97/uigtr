@@ -193,6 +193,7 @@ def create_qrcode_by_email(email):
 		print(">>>>> BERHASIL SAVE! image type : ", type(img))
 
 		tiket.qr_code_image.save(file_name, image_file)
+		tiket.status_pembayaran = status_pembayaran_choices['Lunas']
 		tiket.save()
 		return True
 	except:
