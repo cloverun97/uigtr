@@ -7,10 +7,11 @@ from django.urls import reverse
 from .models import Siswa, Tiket
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import UploadFileForm
 from io import StringIO, BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.template import RequestContext
 import qrcode
 
 status_pembayaran_choices = {'Belum dibayar' : '0' ,
@@ -152,6 +153,7 @@ def status(request):
 		response['tiket'] = tiket
 		response['status_pembayaran'] = st_pembayaran_lst[ int(tiket.status_pembayaran) ]
 		response['lokasi_to'] = lk_to_lst[ int(tiket.lokasi_TO) ]
+		logout(request)
 		return render(request, html, response)
 	else :
 		print("===>>>> COBA KE STATUS, LINK BERUBAH GA?")
@@ -400,3 +402,15 @@ def find(request):
 	response['tikets'] = tikets
 	html = 'tiket/tracking.html'
 	return render(request, html, response)
+
+def handler404(request):
+	context = {'foo': 'bar'}
+	response = render(request, '404.html', context)
+	response.status_code = 404
+	return response
+
+def handler500(request):
+	context = {'foo': 'bar'}
+	response = render(request, '500.html', context)
+	response.status_code = 500
+	return response

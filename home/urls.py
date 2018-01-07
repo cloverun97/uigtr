@@ -4,3 +4,6 @@ from .views import index
 urlpatterns = [
     url(r'^$', index, name='index'),
 ]
+
+handler404 = 'tiket.views.handler404'
+handler500 = 'tiket.views.handler500'
