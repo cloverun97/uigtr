@@ -54,6 +54,7 @@ def bayar(request):
 			deadline = tiket.time_remaining.replace(tzinfo=None)
 			if (deadline < datetime.now()):
 				tiket.status_pembayaran = status_pembayaran_choices['Tidak dibayar']
+				tiket.save()
 				return HttpResponseRedirect(reverse('tiket:beli_tiket'))
 			delta_time = deadline - datetime.now()
 			res = {}
@@ -192,8 +193,9 @@ def create_qrcode_by_email(email):
 		image_file = InMemoryUploadedFile(img_io, None, file_name, 'image/jpeg', img_io.getbuffer().nbytes, None)
 		print(">>>>> BERHASIL SAVE! image type : ", type(img))
 
-		tiket.qr_code_image.save(file_name, image_file)
 		tiket.status_pembayaran = status_pembayaran_choices['Lunas']
+		print("=>>>> GIMANANIH, ", tiket.status_pembayaran)
+		tiket.qr_code_image.save(file_name, image_file)
 		tiket.save()
 		return True
 	except:
@@ -390,27 +392,7 @@ def find(request):
 		html = 'tiket/cari.html'
 		return render(request, html, response)
 	tikets = Tiket.objects.filter(siswa=siswa)
-	zipped = tikets_to_zip(tikets)
-	print(zipped)
-	a,b,c,d,e = zipped
-	print(a,b,c,d,e)
 	response['siswa'] = siswa
-	response['zipped'] = zipped
+	response['tikets'] = tikets
 	html = 'tiket/tracking.html'
 	return render(request, html, response)
-
-def tikets_to_zip(tikets):
-	ret = []
-	for tiket in tikets:
-		lst = []
-		lst.append(tiket.jumlah_tiket_ipa)
-		lst.append(tiket.jumlah_tiket_ips)
-		lst.append(lk_to_lst[ int(tiket.lokasi_TO) ])
-		lst.append(st_pembayaran_lst[ int(tiket.status_pembayaran) ])
-		if tiket.status_pembayaran == '3':
-			lst.append(tiket.qr_code_image.url)
-		else :
-			lst.append('none')
-		ret.append(lst)
-	print(ret)
-	return zip(*ret)

@@ -4,6 +4,20 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/status.css' %}" />
+<style type="text/css">
+	.my-label{
+		float:left; 
+		width:50%; 
+		text-align: right;
+		margin-right: 6px;
+		color: #FBEC5F;
+	}
+	.info {
+		text-align: left;
+		padding-left: 5px; 
+	}
+
+</style>
 <section class="full-page" id="ticket-form" style=" background-image: linear-gradient(to top, #09203f 0%, #537895 100%);">
 	<div class="inner">
 		<div class="container">
@@ -12,15 +26,16 @@
 				<h1 style="color:yellow">Status</h1>
 			</div>
 		</center>
-		<p>Nama : {{siswa.nama}}</p>
-		<p>Email : {{siswa.email}}</p>
-		<p>Asal Sekolah : {{siswa.asal_sekolah}}</p>
-		<p>Tiket Saintek : {{tiket.jumlah_tiket_ipa}}</p>
-		<p>Tiket Soshum : {{tiket.jumlah_tiket_ips}}</p>
-		<p>Lokasi Try Out : {{lokasi_to}}</p>
-		<p>Status Pembayaran : {{status_pembayaran}}</p>
+		<p class="my-label">Nama : </p> <p class="info">{{siswa.nama}}</p>
+		<p class="my-label">Email : </p> <p class="info">{{siswa.email}}</p>
+		<p class="my-label">Asal Sekolah : </p> <p class="info">{{siswa.asal_sekolah}}</p>
+
+		<p class="my-label">Tiket Saintek : </p> <p class="info">{{tiket.jumlah_tiket_ipa}}</p>
+		<p class="my-label">Tiket Soshum : </p> <p class="info">{{tiket.jumlah_tiket_ips}}</p>
+		<p class="my-label">Lokasi Try Out : </p> <p class="info">{{lokasi_to}}</p>
+		<p class="my-label">Status Pembayaran : </p> <p class="info">{{status_pembayaran}}</p>
 		{% if status_pembayaran == "Lunas" %}
-			<p>QRCode :</p>
+			<p class="my-label">QRCode :</p>
 			<img src="{{tiket.qr_code_image.url}}">
         {% endif %}
 

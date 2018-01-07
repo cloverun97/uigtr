@@ -131,7 +131,7 @@ select {
   border-radius: 2px;
 }
 
-button {
+button .button-beli-tiket {
   position: relative;
   display: block;
   padding: 19px 39px 18px 39px;
@@ -148,9 +148,9 @@ button {
   transition: .4s;
 }
 
-button:hover {
+button .button-beli-tiket :hover {
   color: #9b59b6;
-  width: 90%;
+  width: 70%;
   border-radius: 30px;
   background: transparent;
   border-width: 2px 2px 3px;

@@ -12,9 +12,6 @@ function calculate() {
 function calculate_ipa(total_price) {
 	var lokasi = $("#lokasi-TO").val();
 	var ticket_price = 30000;
-	if (lokasi === "Pekanbaru") {
-		ticket_price = 32000;
-	}
 	total_price += $("#tiket-ipa").val() * ticket_price;
 	return total_price;
 }
@@ -22,9 +19,6 @@ function calculate_ipa(total_price) {
 function calculate_ips(total_price) {
 	var lokasi = $("#lokasi-TO").val();
 	var ticket_price = 30000;
-	if (lokasi === "Pekanbaru") {
-		ticket_price = 32000;
-	}
 	total_price += $("#tiket-ips").val() * ticket_price;
 	return total_price;
 }
