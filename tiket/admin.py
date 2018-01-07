@@ -20,10 +20,10 @@ siswa.short_description = 'NAMA SISWA'
 
 def url_bukti(obj):
 	s = str(obj.bukti_pembayaran)
-	print("==>>>> s :", s)
+	# print("==>>>> s :", s)
 	url = get_url(s)
-	print("==>>>> ", url)
-	return '<a href="%s%s">%s</a>' % ('//localhost:8000/media/',url, obj.bukti_pembayaran)
+	# print("==>>>> ", url)
+	return '<a href="%s%s">%s</a>' % ('//uigtr.web.id/media/',url, obj.bukti_pembayaran)
 url_bukti.allow_tags = True
 url_bukti.short_description = 'Bukti pembayaran'
 
