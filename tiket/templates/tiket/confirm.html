@@ -9,6 +9,12 @@
 			<form method="POST">
 				{% csrf_token %}
 				<p style="  font-family: 'Quicksand', sans-serif; color:yellow">Masukkan email untuk generate QRCode:</p>
+				{% if response %}
+					<p style="color: red;"> {{response}}</p>
+				{% endif %}
+				{% if response_success %}
+					<p style="color: yellow;"> {{response_success}}</p>
+				{% endif %}
 				<input type="email" name="email">
 				<button type="submit">generate</button>
 			</form>

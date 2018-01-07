@@ -158,16 +158,20 @@ def status(request):
 		return HttpResponseRedirect('/tiket/beli')
 
 @login_required
-def verif(request):
+def confirm(request):
+	response = {}
 	if request.user.is_superuser and request.method == 'POST':
 		email = request.POST['email']
 		if create_qrcode_by_email(email):
-			return HttpResponseRedirect('Success!')
+			response['response_success'] = 'SUCCESS!'
+			html = 'tiket/confirm.html'
+			return render(request, html, response)
 		else :
-			return HttpResponseRedirect('Error! Tanya Rehan')
+			response['response'] = 'ERROR!'
+			html = 'tiket/confirm.html'
+			return render(request, html, response)
 	elif request.user.is_superuser:
-		response = {}
-		html = 'tiket/verif.html'
+		html = 'tiket/confirm.html'
 		return render(request, html, response)
 	else :
 		print("===>>>> BUKAN ADMIN GABOLEH MASUK :p")

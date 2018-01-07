@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import index, beli_tiket, add_form, bayar, transfer, upload_bukti, tunggu_konfirmasi, status, verif, cari, find
+from .views import index, beli_tiket, add_form, bayar, transfer, upload_bukti, tunggu_konfirmasi, status, confirm, cari, find
 #url for app
 urlpatterns = [
     url(r'^$', index, name='index'),
@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^upload_bukti/', upload_bukti, name='upload_bukti'),
     url(r'^tunggu_konfirmasi/', tunggu_konfirmasi, name='tunggu_konfirmasi'),
     url(r'^status/', status, name='status'),
-    url(r'^verif/', verif, name='verif'),
+    url(r'^confirm/', confirm, name='confirm'),
     url(r'^cari/', cari, name='cari'),
     url(r'^find/', find, name='find'),
 ]

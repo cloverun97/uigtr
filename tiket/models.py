@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib import admin
 # from allauth.account.signals import user_signed_up
 
 PKU = '0'
@@ -16,7 +17,8 @@ st_bayar = {
 	'2': 'Menunggu konfirmasi',
 	'3': 'Lunas',
 	'4': 'Ditolak',
-	'5': 'Tidak dibayar'
+	'5': 'Tidak dibayar',
+	'6': 'Verified'
 	}
 
 class Siswa(models.Model):
@@ -53,7 +55,8 @@ class Tiket(models.Model):
 		('2', 'Menunggu konfirmasi'),
 		('3', 'Lunas'),
 		('4', 'Ditolak'),
-		('5', 'Tidak dibayar')
+		('5', 'Tidak dibayar'),
+		('6', 'Verified'),
 	)
 
 	LOKASI_TO_CHOICES = (
@@ -74,7 +77,8 @@ class Tiket(models.Model):
 	qr_code_image = models.ImageField(blank=True, null=True)
 
 	def __str__(self):
-		return self.siswa.nama + " ==> " + st_bayar[self.status_pembayaran]
+		return self.siswa.nama
 
 	class Meta:
 		ordering = ["-created_time", "-status_pembayaran"]
+
