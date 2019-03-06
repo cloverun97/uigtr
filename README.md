@@ -1,5 +1,4 @@
-# Title
-
+# UIGTR Web
 A Project to build website for UI Goes To Riau, a program of Ikatan Mahasiswa Riau UI (Riau Student Association in University of Indonesia)
 
 ## Motivation
