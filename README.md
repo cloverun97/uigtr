@@ -27,7 +27,8 @@ This website is built with:
 * [jQuery](http://jquery.com/)
 
 ## Installation
-Before running this project, make sure you have installed python & pip on your computer
+Before running this project, make sure you have installed python & pip on your computer.
+&nbsp;
 Create and activate virtual environment first
 ```bash
 $ pip -m ven env
